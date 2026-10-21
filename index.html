@@ -156,6 +156,23 @@ footer p{max-width:70ch}
 
 .wa{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:6;width:56px;height:56px;border-radius:50%;background:var(--accent);color:var(--bg);display:grid;place-items:center;box-shadow:0 6px 20px rgba(0,0,0,.18)}
 .wa svg{width:26px;height:26px;fill:currentColor}
+/* Convite de atendimento (pop-up discreto) */
+.convite{position:fixed;z-index:20;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(92px + env(safe-area-inset-bottom,0px));width:min(360px,calc(100vw - 40px));background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:0 18px 50px rgba(28,29,31,.18);padding:22px 22px 20px;display:grid;gap:12px;transform:translateY(12px);opacity:0;transition:opacity .35s ease,transform .35s ease}
+.convite.on{opacity:1;transform:none}
+.convite .topo{display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.convite .topo .mono{font-size:15px;padding-right:10px}
+.convite .topo div{display:grid;gap:2px}
+.convite .topo b{font-family:var(--brand);font-weight:400;font-size:12.5px;letter-spacing:.08em}
+.convite .topo small{font-family:var(--brand);font-size:10.5px;letter-spacing:.1em;color:var(--muted)}
+.convite h3{font-size:23px;line-height:1.2}
+.convite p{font-size:15px;color:var(--muted)}
+.convite .acoes{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+.convite .acoes .btn{padding:11px 16px;font-size:14.5px}
+.convite .fechar{position:absolute;top:10px;right:10px;width:32px;height:32px;border:0;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer}
+.convite .fechar:hover{color:var(--ink)}
+.convite .rodape{font-size:12px;color:var(--muted)}
+@media (max-width:520px){.convite{left:max(12px,env(safe-area-inset-left,0px));right:max(12px,env(safe-area-inset-right,0px));width:auto;bottom:calc(88px + env(safe-area-inset-bottom,0px))}}
+@media (prefers-reduced-motion:reduce){.convite{transition:none}}
 </style>
 </head>
 <body>
@@ -351,5 +368,35 @@ footer p{max-width:70ch}
 <a class="wa" href="https://wa.me/5512991941594?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20atendimento%20jur%C3%ADdico." target="_blank" rel="noopener" aria-label="Conversar pelo WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
 </a>
+
+<aside class="convite" id="convite" role="dialog" aria-labelledby="convite-titulo" hidden>
+  <button class="fechar" id="convite-fechar" type="button" aria-label="Fechar">×</button>
+  <div class="topo">
+    <span class="mono" aria-hidden="true"><span>A</span><span>M</span><span>R</span><span>G</span></span>
+    <div><b>ALLAN M. R. GONZALEZ</b><small>ADVOGADO · OAB/SP 509.620</small></div>
+  </div>
+  <h3 id="convite-titulo">Precisa de orientação jurídica?</h3>
+  <p>Descreva brevemente a sua situação pelo WhatsApp e agende um atendimento, presencial em Guaratinguetá ou on-line.</p>
+  <div class="acoes">
+    <a class="btn" href="https://wa.me/5512991941594?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20atendimento%20jur%C3%ADdico." target="_blank" rel="noopener" id="convite-ir">Agendar pelo WhatsApp</a>
+    <button class="btn ghost" type="button" id="convite-depois">Agora não</button>
+  </div>
+  <p class="rodape">Atendimento com hora marcada · (12) 99194-1594</p>
+</aside>
+<script>
+(function(){
+  var box=document.getElementById('convite'),K='amrg-convite-visto',aberto=false;
+  function visto(){try{return sessionStorage.getItem(K)==='1'}catch(e){return false}}
+  function marcar(){try{sessionStorage.setItem(K,'1')}catch(e){}}
+  function abrir(){if(aberto||visto())return;aberto=true;marcar();box.hidden=false;requestAnimationFrame(function(){box.classList.add('on')});window.removeEventListener('scroll',rolagem);}
+  function fechar(){box.classList.remove('on');setTimeout(function(){box.hidden=true},350);}
+  function rolagem(){var h=document.documentElement;if((h.scrollTop+innerHeight)/h.scrollHeight>=0.5)abrir();}
+  document.getElementById('convite-fechar').onclick=fechar;
+  document.getElementById('convite-depois').onclick=fechar;
+  document.getElementById('convite-ir').addEventListener('click',fechar);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!box.hidden)fechar();});
+  if(!visto()){setTimeout(abrir,12000);window.addEventListener('scroll',rolagem,{passive:true});}
+})();
+</script>
 </body>
 </html>
