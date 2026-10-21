@@ -92,7 +92,11 @@ section.block{padding-block:clamp(64px,9vw,112px);border-bottom:1px solid var(--
 .body-grid{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px}
 @media (max-width:760px){.sec-head,.body-grid{grid-template-columns:1fr;gap:12px}.sec-head{margin-bottom:32px}}
 
-/* Quem sou */
+/* O escritório */
+.sec-head h2.destaque{font-size:clamp(36px,5.6vw,68px);line-height:1.06;font-weight:400;max-width:18ch;padding-left:24px;border-left:2px solid var(--brass)}
+.sec-head h2.destaque em{font-style:italic;color:var(--brass)}
+.sobre .abre{font-family:var(--display);font-size:22px;line-height:1.35;color:var(--ink)}
+@media (max-width:760px){.sec-head h2.destaque{padding-left:16px}}
 .sobre{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:48px}
 .sobre p+p{margin-top:16px}
 .sobre .txt{max-width:60ch}
@@ -183,7 +187,7 @@ footer p{max-width:70ch}
       <span class="nm"><b><span class="full">ALLAN MATHEUS RIBEIRO GONZALEZ</span><span class="short">ALLAN M. R. GONZALEZ</span></b><small>ADVOGADO · OAB/SP 509.620</small></span>
     </a>
     <nav class="menu" aria-label="Seções">
-      <a href="#sobre">Quem sou</a>
+      <a href="#sobre">O escritório</a>
       <a href="#areas">Áreas de atuação</a>
       <a href="#teses">Teses</a>
       <a href="#atendimento">Atendimento</a>
@@ -217,15 +221,15 @@ footer p{max-width:70ch}
   <section class="block" id="sobre">
     <div class="wrap">
       <div class="sec-head">
-        <p class="label">Quem sou</p>
-        <div><h2>Um advogado, cada caso conduzido pessoalmente.</h2></div>
+        <p class="label">O escritório</p>
+        <div><h2 class="destaque">O melhor litígio é aquele que <em>nunca começa.</em></h2></div>
       </div>
       <div class="body-grid">
         <div></div>
         <div class="sobre">
           <div class="txt">
-            <p>Sou advogado no Vale do Paraíba, formado pelo Centro Universitário Salesiano de São Paulo (UNISAL), Campus São Joaquim, em Lorena. Atuo em direito civil, empresarial e trabalhista, com ênfase em contratos.</p>
-            <p>O escritório é conduzido por mim. Quem me procura trata diretamente com o advogado responsável pelo caso, do primeiro contato ao encerramento, e recebe informação clara sobre cada andamento.</p>
+            <p class="abre">Prevenção não é cautela excessiva, é estratégia.</p>
+            <p>Contratos bem redigidos, notificações oportunas e orientação antes de cada decisão importante. E, quando o embate é inevitável, uma condução técnica e criteriosa, sem improvisos.</p>
           </div>
           <dl class="principios">
             <div><dt>Preventiva</dt><dd>Identificar o risco antes que ele vire processo: revisão de contratos, notificações e orientação prévia.</dd></div>
